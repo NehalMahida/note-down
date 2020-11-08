@@ -1,10 +1,13 @@
-import os
+# this file contain the application factory, and it tells python that
+# notedown directory should be treated as a package.
 
+import os
 from flask import Flask
 
 
 def create_app(test_config=None):
     # create and configure the app
+    # __name__ is the name of the current python module. the app need to know where it is located to set up some paths.
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
@@ -27,5 +30,8 @@ def create_app(test_config=None):
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
+
+    from . import db
+    db.init_app(app)
 
     return app
