@@ -56,8 +56,8 @@ def login():
             error = 'Incorrect Password.'
 
         if error is None:
-            session.clear()
-            session['user_id'] = user['id']
+            session.clear()            
+            session['user_id'] = user['id']            
             return redirect(url_for('index'))
 
         flash(error)
@@ -67,7 +67,7 @@ def login():
 # before any request check wheter any user is logged in or not.
 @bp.before_app_request
 def load_logged_in_user():
-    user_id = session.get('user-id')
+    user_id = session.get('user_id')
 
     if user_id is None:
         g.user = None
